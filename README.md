@@ -1,14 +1,20 @@
-[![Build Status](https://travis-ci.org/tpruvot/yiimp.svg?branch=next)](https://travis-ci.org/tpruvot/yiimp)
-
 #yiimp - yaamp fork
 
-WARNINGS
+<h1>Yiimp Pool for Kryptofranc</h1>
+
+Yiimp pool is not working out of the box for Bitcoin Core 1.0.17 + and of course for Kryptofranc too. I have to fix some little problems to get it working.
+
+```WARNINGS
 - Use at your own risks.
 - Usage of this software requires abilities with sysadmin, database admin, coin daemons, and sometimes a bit of programming. Running a production pool can literally be more work than a full-time job.
+```
 
-Required:
+Install it from https://github.com/NicolasChoukroun/yiimp_install_scrypt
+The install script will do everything for you.
 
-	linux, mysql, php, memcached, a webserver (lighttpd or nginx recommended)
+`
+Required:  linux, mysql, php, memcached, a webserver (lighttpd or nginx recommended)
+`
 
 
 Config for nginx:
