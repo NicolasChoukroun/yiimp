@@ -16,6 +16,16 @@ The install script will do everything for you.
 Required:  linux, mysql, php, memcached, a webserver (lighttpd or nginx recommended)
 `
 
+<b>If you want to edit and modify (re-compile it manually)</b>
+Go to 
+
+`cd ~/yiimp-install-only-do-not-run-commands-from-this-folder/stratum
+make install
+cd /var/stratum/
+run sha
+`
+
+
 
 Config for nginx:
 
