@@ -19,11 +19,13 @@ Required:  linux, mysql, php, memcached, a webserver (lighttpd or nginx recommen
 <b>If you want to edit and modify (re-compile it manually)</b>
 Go to 
 
-`cd ~/yiimp-install-only-do-not-run-commands-from-this-folder/stratum<br>
-make install<br>
-cd /var/stratum/<br>
-run sha<br>
-`
+```
+cd ~/yiimp-install-only-do-not-run-commands-from-this-folder/stratum
+make install
+cd /var/stratum/
+run sha
+
+```
 
 
 
