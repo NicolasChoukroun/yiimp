@@ -2,7 +2,7 @@
 
 <h1>Yiimp Pool for Kryptofranc</h1>
 
-Yiimp pool is not working out of the box for Bitcoin Core 1.0.17+ and of course for Kryptofranc. I had to fix some little problems to get it working, reason why I forked it.
+Yiimp pool is not working out of the box for Bitcoin Core 1.0.17+ and of course for Kryptofranc. I had to fix some little problems to get it to work, reason why I forked it.
 
 ```WARNINGS
 - Use at your own risks.
