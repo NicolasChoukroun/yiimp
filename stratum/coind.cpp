@@ -89,10 +89,14 @@ bool coind_validate_user_address(YAAMP_COIND *coind, char* const address)
 	sprintf(params, "[\"%s\"]", address);
 
 	json_value *json = rpc_call(&coind->rpc, "validateaddress", params);
-	if(!json) return false;
+	if(!json) {
+		stratumlog("error: validateaddress is not working: %s %s %s.\n", g_stratum_algo, coind->symbol, address);
+		return false;
+	}
 
 	json_value *json_result = json_get_object(json, "result");
 	if(!json_result) {
+		stratumlog("error: validateaddress send empty answer: %s %s %s.\n", g_stratum_algo, coind->symbol, address);
 		json_value_free(json);
 		return false;
 	}
@@ -115,25 +119,27 @@ bool coind_validate_address(YAAMP_COIND *coind)
 	sprintf(params, "[\"%s\"]", coind->wallet);
 
 	json_value *json;
-	bool getaddressinfo = ((strcmp(coind->symbol,"DGB") == 0) || (strcmp(coind->symbol2, "DGB") == 0));
-	if(getaddressinfo)
-		json = rpc_call(&coind->rpc, "getaddressinfo", params);
-	else
-		json = rpc_call(&coind->rpc, "validateaddress", params);
-	if(!json) return false;
+	
+	json = rpc_call(&coind->rpc, "getaddressinfo", params);
+
+	if(!json) {
+		stratumlog("error: getaddressinfo return empty answer: %s.\n", coind->symbol);
+		return false;
+	}
 
 	json_value *json_result = json_get_object(json, "result");
 	if(!json_result)
 	{
+		stratumlog("error: getaddressinfo return no result answer in json: %s.\n", coind->symbol);
 		json_value_free(json);
 		return false;
 	}
 
-	bool isvalid = getaddressinfo || json_get_bool(json_result, "isvalid");
-	if(!isvalid) stratumlog("%s wallet %s is not valid.\n", coind->name, coind->wallet);
+	bool isvalid =  json_get_bool(json_result, "isvalid");
+	if(!isvalid) stratumlog("Coin Name: %s with wallet %s is not valid.\n", coind->name, coind->wallet);
 
 	bool ismine = json_get_bool(json_result, "ismine");
-	if(!ismine) stratumlog("%s wallet %s is not mine.\n", coind->name, coind->wallet);
+	if(!ismine) stratumlog("Coin Name: %s with wallet %s is not mine.\n", coind->name, coind->wallet);
 	else isvalid = ismine;
 
 	const char *p = json_get_string(json_result, "pubkey");
@@ -208,7 +214,7 @@ void coind_init(YAAMP_COIND *coind)
 
 	coind_validate_address(coind);
 	if (strlen(coind->wallet)) {
-		debuglog(">>>>>>>>>>>>>>>>>>>> using wallet %s %s\n",
+		debuglog("Coin is valid! => using wallet Name=%s Account=%s\n",
 			coind->wallet, coind->account);
 	}
 }
